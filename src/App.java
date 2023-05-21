@@ -7,12 +7,11 @@ import java.awt.event.KeyListener;
 import java.util.Arrays;
 
 public class App {
-    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_WIDTH = 800;    //the screen refers to the JComponent that the game is drawn on
     private static final int SCREEN_HEIGHT = 600;
-    private static final Dimension screenDim = new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT);
-    private static final int DELAY = 75;   //in ms for timer
-    private static final int GROW_RATE = 4;
-    private static boolean gamePaused = false;
+    private static final int DELAY = 75;            //for timer (in ms)
+    private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
+    private static boolean gamePaused = false;      
     public static void main(String[] args) {
         JFrame frame = new JFrame("Snake by Sherlock._.");
         //game objects
@@ -20,7 +19,7 @@ public class App {
         Fruit fruit = new Fruit(snek, SCREEN_WIDTH, SCREEN_HEIGHT);
         //Set up JComponent to draw on
         Screen gameScreen = new Screen(snek, fruit);
-        gameScreen.setPreferredSize(screenDim);
+        gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         
         class TimerListener implements ActionListener {
             @Override
