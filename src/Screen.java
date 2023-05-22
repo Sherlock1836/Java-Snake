@@ -17,9 +17,10 @@ public class Screen extends JComponent{
         g2D = (Graphics2D) g;
         g2D.setColor(getBackground());                    //this line and the next line are what I used to get the background to work properly
         g2D.fillRect(0, 0, getWidth(), getHeight());  //it basically fills the Screen component with black every time it's repainted (i couldn't get set background to work right)
-        if(!fruit.isEaten())
+        if(!fruit.isEaten()) {
             g2D.setColor(Color.RED);
             g2D.fillRect(fruit.getFruit()[0], fruit.getFruit()[1], fruit.getFruitThickness(), fruit.getFruitThickness());
+        }
         for(int[] segment : snek.getSnakeBody()) {
             Rectangle rect = new Rectangle(segment[0], segment[1], snek.getSnakeThickness(), snek.getSnakeThickness());
             g2D.setColor(Color.GREEN);
