@@ -73,7 +73,7 @@ public class Snake {
     public void didHeDie() {
         if(snakeBody.getFirst()[0] >= xBound || snakeBody.getFirst()[1] >= yBound)
             snekDed = true;
-        if(snakeBody.getFirst()[0] <= 0 || snakeBody.getFirst()[1] <= 0)
+        if(snakeBody.getFirst()[0] < 0 || snakeBody.getFirst()[1] < 0)    //doesn't use "or equal to" because the snake is still within bounds at (0, 0)
             snekDed = true;
         if(bodyColision(1, snakeBody.getFirst()))
             snekDed = true;
