@@ -37,12 +37,12 @@ public class Fruit {
         while(snek.bodyColision(0, new int[] {x, y})) {
             x = genRandCoord(xBound);
             y = genRandCoord(yBound);
-        }
+        } 
         fruit[0] = x;
         fruit[1] = y;
         isEaten = false;
     }
     public int genRandCoord(int bound) {
-        return fruitThickness * rand.nextInt(fruitThickness, bound / fruitThickness + 1) - fruitThickness;
+        return fruitThickness * rand.nextInt(0, (bound - fruitThickness) / fruitThickness + 1);
     }
 }
