@@ -69,8 +69,6 @@ public class App {
                         gamePaused = true;
                     }
                 }
-                if(e.getKeyCode() == KeyEvent.VK_G)
-                    fruit.generateFruit();
             }
             @Override
             public void keyReleased(KeyEvent e) {
