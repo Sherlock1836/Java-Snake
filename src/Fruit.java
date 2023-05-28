@@ -7,8 +7,6 @@ public class Fruit {
     private Random rand = new Random();
     private int xBound;
     private int yBound;
-    private int x;
-    private int y;
     private boolean isEaten = true;
 
     public Fruit(Snake snek, int screenWidth, int screenHeight) {
@@ -32,8 +30,8 @@ public class Fruit {
     }
     
     public void generateFruit() {
-        x = genRandCoord(xBound);
-        y = genRandCoord(yBound);
+        int x = genRandCoord(xBound);
+        int y = genRandCoord(yBound);
         while(snek.bodyColision(0, new int[] {x, y})) {
             x = genRandCoord(xBound);
             y = genRandCoord(yBound);
