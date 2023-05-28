@@ -12,6 +12,9 @@ public class App {
     private static final int DELAY = 75;            //for timer (in ms)
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
     private static boolean gamePaused = false;      
+    public static boolean isGamePaused() {
+        return gamePaused;
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Snake by Sherlock._.");
         //game objects
@@ -25,7 +28,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                if(!snek.isDed()) {
+                if(!snek.isDed() && !gamePaused) {
                     if(fruit.isEaten())
                         fruit.generateFruit();
                     if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit.getFruit())){
@@ -36,6 +39,7 @@ public class App {
                     snek.didHeDie();
                     gameScreen.updateScreen();
                 }
+                gameScreen.updateScreen();
             }
         }
         Timer ticker = new Timer(DELAY, new TimerListener());
@@ -61,11 +65,9 @@ public class App {
                 }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if(gamePaused == true){
-                        ticker.start();
                         gamePaused = false;
                     }
                     else{
-                        ticker.stop();
                         gamePaused = true;
                     }
                 }

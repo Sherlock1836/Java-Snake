@@ -17,10 +17,21 @@ public class Screen extends JComponent{
         g2D = (Graphics2D) g;
         g2D.setColor(getBackground());                    //this line and the next line are what I used to get the background to work properly
         g2D.fillRect(0, 0, getWidth(), getHeight());  //it basically fills the Screen component with black every time it's repainted (i couldn't get set background to work right)
+        drawFruit(g2D);
+        drawSnek(g2D);
+        if(snek.isDed())
+            drawDedSnekBlock(g2D);
+        if(App.isGamePaused() && !snek.isDed())
+            drawPausedText(g2D);
+    }
+
+    public void drawFruit(Graphics2D g2D) {
         if(!fruit.isEaten()) {
             g2D.setColor(Color.RED);
             g2D.fillRect(fruit.getFruit()[0], fruit.getFruit()[1], fruit.getFruitThickness(), fruit.getFruitThickness());
         }
+    }
+    public void drawSnek(Graphics2D g2D) {
         for(int[] segment : snek.getSnakeBody()) {
             Rectangle rect = new Rectangle(segment[0], segment[1], snek.getSnakeThickness(), snek.getSnakeThickness());
             g2D.setColor(Color.GREEN);
@@ -28,14 +39,35 @@ public class Screen extends JComponent{
             g2D.setColor(Color.BLACK);
             g2D.draw(rect);
         }
-        if(snek.isDed()){
-            g2D.setColor(Color.LIGHT_GRAY);
-            Rectangle rect = new Rectangle(snek.getSnakeBody().getFirst()[0], snek.getSnakeBody().getFirst()[1], snek.getSnakeThickness(), snek.getSnakeThickness());
-            g2D.fill(rect);
-            g2D.setColor(Color.BLACK);
-            g2D.draw(rect);
-        }
     }
+    public void drawDedSnekBlock(Graphics2D g2D) {
+        g2D.setColor(Color.LIGHT_GRAY);
+        Rectangle rect = new Rectangle(snek.getSnakeBody().getFirst()[0], snek.getSnakeBody().getFirst()[1], snek.getSnakeThickness(), snek.getSnakeThickness());
+        g2D.fill(rect);
+        g2D.setColor(Color.BLACK);
+        g2D.draw(rect);
+    }
+    public void drawPausedText(Graphics2D g2D) {
+        g2D.setFont(new Font("Arial", Font.PLAIN, 32));
+        String pauseText = "Game Paused";
+        FontMetrics fm = g2D.getFontMetrics();
+        int txtWidth = fm.stringWidth(pauseText);
+        int txtHeight = fm.getHeight();
+        int centerX = (getWidth() - txtWidth) / 2;
+        int centerY = (getHeight() - txtHeight) / 2;
+
+        g2D.setColor(Color.BLACK);
+        int padding = 10; 
+        int backgroundX = centerX - padding;
+        int backgroundY = centerY - txtHeight;
+        int backgroundWidth = txtWidth + 2 * padding;
+        int backgroundHeight = txtHeight + 2 * padding;
+        g2D.fillRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
+
+        g2D.setColor(Color.GRAY);
+        g2D.drawString(pauseText, centerX, centerY);
+    }
+
     public void updateScreen() {
         repaint();
     }
