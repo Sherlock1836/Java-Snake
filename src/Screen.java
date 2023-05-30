@@ -19,10 +19,12 @@ public class Screen extends JComponent{
         g2D.fillRect(0, 0, getWidth(), getHeight());  //it basically fills the Screen component with black every time it's repainted (i couldn't get set background to work right)
         drawFruit(g2D);
         drawSnek(g2D);
-        if(snek.isDed())
+        if(App.isGameOver()) {
             drawDedSnekBlock(g2D);
-        if(App.isGamePaused() && !snek.isDed())
-            drawPausedText(g2D);
+            drawCenterText(g2D, "Game Over", Color.BLUE);
+        }
+        if(App.isGamePaused() && !App.isGameOver())
+            drawCenterText(g2D, "Game Paused", Color.GRAY);
     }
 
     public void drawFruit(Graphics2D g2D) {
@@ -47,11 +49,10 @@ public class Screen extends JComponent{
         g2D.setColor(Color.BLACK);
         g2D.draw(rect);
     }
-    public void drawPausedText(Graphics2D g2D) {
+    public void drawCenterText(Graphics2D g2D, String txt, Color color) {
         g2D.setFont(new Font("Arial", Font.PLAIN, 32));
-        String pauseText = "Game Paused";
         FontMetrics fm = g2D.getFontMetrics();
-        int txtWidth = fm.stringWidth(pauseText);
+        int txtWidth = fm.stringWidth(txt);
         int txtHeight = fm.getHeight();
         int centerX = (getWidth() - txtWidth) / 2;
         int centerY = (getHeight() - txtHeight) / 2;
@@ -64,8 +65,8 @@ public class Screen extends JComponent{
         int backgroundHeight = txtHeight + 2 * padding;
         g2D.fillRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
 
-        g2D.setColor(Color.GRAY);
-        g2D.drawString(pauseText, centerX, centerY);
+        g2D.setColor(color);
+        g2D.drawString(txt, centerX, centerY);
     }
 
     public void updateScreen() {

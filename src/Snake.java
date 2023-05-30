@@ -7,7 +7,6 @@ public class Snake {
     private int snakeThickness = 20;
     private String direction = null;
     private boolean moved = false;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to wierd deaths
-    private boolean snekDed = false;
     private int xBound;
     private int yBound;
 
@@ -25,12 +24,6 @@ public class Snake {
     }
     public String getDirection() {
         return direction;
-    }    
-    public boolean isDed() {
-        return snekDed;
-    }
-    public void setSnekDed(boolean snekDed) {
-        this.snekDed = snekDed;
     }
     private int numPartsToGrow = 0;
 
@@ -70,12 +63,13 @@ public class Snake {
         }
         return false;
     }
-    public void didHeDie() {
+    public boolean didHeDie() {
         if(snakeBody.getFirst()[0] >= xBound || snakeBody.getFirst()[1] >= yBound)
-            snekDed = true;
+            return true;
         if(snakeBody.getFirst()[0] < 0 || snakeBody.getFirst()[1] < 0)    //doesn't use "or equal to" because the snake is still within bounds at (0, 0)
-            snekDed = true;
+            return true;
         if(bodyColision(1, snakeBody.getFirst()))
-            snekDed = true;
+            return true;
+        return false;
     }
 }

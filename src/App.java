@@ -11,7 +11,11 @@ public class App {
     private static final int SCREEN_HEIGHT = 600;
     private static final int DELAY = 75;            //for timer (in ms)
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
-    private static boolean gamePaused = false;      
+    private static boolean gamePaused = false;
+    private static boolean gameOver = false;      
+    public static boolean isGameOver() {
+        return gameOver;
+    }
     public static boolean isGamePaused() {
         return gamePaused;
     }
@@ -28,7 +32,7 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                if(!snek.isDed() && !gamePaused) {
+                if(!gameOver && !gamePaused) {
                     if(fruit.isEaten())
                         fruit.generateFruit();
                     if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit.getFruit())){
@@ -36,8 +40,7 @@ public class App {
                         snek.grow(GROW_RATE);
                     }
                     snek.move();
-                    snek.didHeDie();
-                    gameScreen.updateScreen();
+                    gameOver = snek.didHeDie();
                 }
                 gameScreen.updateScreen();
             }
