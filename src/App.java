@@ -12,7 +12,11 @@ public class App {
     private static final int DELAY = 75;            //for timer (in ms)
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
     private static boolean gamePaused = false;
-    private static boolean gameOver = false;      
+    private static boolean gameOver = false;
+    private static int score;    
+    public static int getScore() {
+        return score;
+    }
     public static boolean isGameOver() {
         return gameOver;
     }
@@ -39,6 +43,7 @@ public class App {
                         fruit.setEaten(true);
                         snek.grow(GROW_RATE);
                     }
+                    score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
                 }

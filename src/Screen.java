@@ -21,7 +21,7 @@ public class Screen extends JComponent{
         drawSnek(g2D);
         if(App.isGameOver()) {
             drawDedSnekBlock(g2D);
-            drawCenterText(g2D, "Game Over", Color.BLUE);
+            drawCenterText(g2D, "Game Over " + App.getScore(), Color.BLUE);
         }
         if(App.isGamePaused() && !App.isGameOver())
             drawCenterText(g2D, "Game Paused", Color.GRAY);
