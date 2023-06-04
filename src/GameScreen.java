@@ -9,7 +9,6 @@ public class GameScreen extends JComponent{
     public GameScreen(Snake snek, Fruit fruit) {
         this.snek = snek;
         this.fruit = fruit;
-        setOpaque(true);
         setBackground(Color.BLACK);
     }
 

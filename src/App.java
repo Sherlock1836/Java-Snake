@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +33,8 @@ public class App {
         //Set up JComponent to draw on
         GameScreen gameScreen = new GameScreen(snek, fruit);
         gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        ScorePanel scorePanel = new ScorePanel();
+        scorePanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT / 10));
         
         class TimerListener implements ActionListener {
             @Override
@@ -48,6 +52,7 @@ public class App {
                     gameOver = snek.didHeDie();
                 }
                 gameScreen.updateScreen();
+                scorePanel.updatePanel();
             }
         }
         Timer ticker = new Timer(DELAY, new TimerListener());
@@ -86,7 +91,8 @@ public class App {
             }
         }
 
-        frame.add(gameScreen);
+        frame.add(gameScreen, BorderLayout.CENTER);
+        frame.add(scorePanel, BorderLayout.SOUTH);
         frame.addKeyListener(new KeyListenerBoi());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
