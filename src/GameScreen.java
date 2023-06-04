@@ -1,12 +1,12 @@
 import javax.swing.JComponent;
 import java.awt.*;
 
-public class Screen extends JComponent{
+public class GameScreen extends JComponent{
     private Graphics2D g2D;
     private Snake snek;
     private Fruit fruit;
 
-    public Screen(Snake snek, Fruit fruit) {
+    public GameScreen(Snake snek, Fruit fruit) {
         this.snek = snek;
         this.fruit = fruit;
         setOpaque(true);

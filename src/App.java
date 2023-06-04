@@ -29,7 +29,7 @@ public class App {
         Snake snek = new Snake(SCREEN_WIDTH, SCREEN_HEIGHT);
         Fruit fruit = new Fruit(snek, SCREEN_WIDTH, SCREEN_HEIGHT);
         //Set up JComponent to draw on
-        Screen gameScreen = new Screen(snek, fruit);
+        GameScreen gameScreen = new GameScreen(snek, fruit);
         gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         
         class TimerListener implements ActionListener {
