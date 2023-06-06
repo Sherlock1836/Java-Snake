@@ -1,20 +1,18 @@
 import javax.swing.JComponent;
 import java.awt.*;
 
-public class Screen extends JComponent{
-    private Graphics2D g2D;
+public class GameScreen extends JComponent{
     private Snake snek;
     private Fruit fruit;
 
-    public Screen(Snake snek, Fruit fruit) {
+    public GameScreen(Snake snek, Fruit fruit) {
         this.snek = snek;
         this.fruit = fruit;
-        setOpaque(true);
         setBackground(Color.BLACK);
     }
 
     public void paintComponent(Graphics g) {
-        g2D = (Graphics2D) g;
+        Graphics2D g2D = (Graphics2D) g;
         g2D.setColor(getBackground());                    //this line and the next line are what I used to get the background to work properly
         g2D.fillRect(0, 0, getWidth(), getHeight());  //it basically fills the Screen component with black every time it's repainted (i couldn't get set background to work right)
         drawFruit(g2D);
@@ -50,7 +48,7 @@ public class Screen extends JComponent{
         g2D.draw(rect);
     }
     public void drawCenterText(Graphics2D g2D, String txt, Color color) {
-        g2D.setFont(new Font("Arial", Font.PLAIN, 32));
+        g2D.setFont(new Font("Arial Black", Font.PLAIN, 32));
         FontMetrics fm = g2D.getFontMetrics();
         int txtWidth = fm.stringWidth(txt);
         int txtHeight = fm.getHeight();

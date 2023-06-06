@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Arrays;
 
 public class Fruit {
     private Snake snek;
@@ -42,5 +43,13 @@ public class Fruit {
     }
     public int genRandCoord(int bound) {
         return fruitThickness * rand.nextInt(0, (bound - fruitThickness) / fruitThickness + 1);
+    }
+    public void updateFruit() {
+        if(isEaten())
+            generateFruit();
+        if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit)){
+            setEaten(true);
+            snek.grow(App.getGrowRate());
+        }
     }
 }

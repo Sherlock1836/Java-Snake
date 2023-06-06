@@ -1,10 +1,11 @@
 import javax.swing.*;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 public class App {
     private static final int SCREEN_WIDTH = 800;    //the screen refers to the JComponent that the game is drawn on
@@ -23,31 +24,32 @@ public class App {
     public static boolean isGamePaused() {
         return gamePaused;
     }
+    public static int getGrowRate() {
+        return GROW_RATE;
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Snake by Sherlock._.");
         //game objects
         Snake snek = new Snake(SCREEN_WIDTH, SCREEN_HEIGHT);
         Fruit fruit = new Fruit(snek, SCREEN_WIDTH, SCREEN_HEIGHT);
         //Set up JComponent to draw on
-        Screen gameScreen = new Screen(snek, fruit);
+        GameScreen gameScreen = new GameScreen(snek, fruit);
         gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        ScorePanel scorePanel = new ScorePanel();
+        scorePanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT / 10));
         
         class TimerListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 if(!gameOver && !gamePaused) {
-                    if(fruit.isEaten())
-                        fruit.generateFruit();
-                    if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit.getFruit())){
-                        fruit.setEaten(true);
-                        snek.grow(GROW_RATE);
-                    }
+                    fruit.updateFruit();
                     score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
                 }
                 gameScreen.updateScreen();
+                scorePanel.updatePanel();
             }
         }
         Timer ticker = new Timer(DELAY, new TimerListener());
@@ -72,12 +74,17 @@ public class App {
                     snek.setMoved(false);
                 }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if(gamePaused == true){
-                        gamePaused = false;
+                    if(!gameOver){
+                        if(gamePaused == true)
+                            gamePaused = false;
+                        else
+                            gamePaused = true;
+                    } else {
+                        gameOver = false;
+                        snek.resetSnek();
+                        fruit.generateFruit();
                     }
-                    else{
-                        gamePaused = true;
-                    }
+
                 }
             }
             @Override
@@ -86,7 +93,8 @@ public class App {
             }
         }
 
-        frame.add(gameScreen);
+        frame.add(gameScreen, BorderLayout.CENTER);
+        frame.add(scorePanel, BorderLayout.SOUTH);
         frame.addKeyListener(new KeyListenerBoi());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();

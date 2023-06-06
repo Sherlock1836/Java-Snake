@@ -5,8 +5,8 @@ import java.util.ListIterator;
 public class Snake {
     private LinkedList<int []> snakeBody = new LinkedList<int[]>();
     private int snakeThickness = 20;
-    private String direction = null;
-    private boolean moved = false;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to wierd deaths
+    private String direction;
+    private boolean moved;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to wierd deaths
     private int xBound;
     private int yBound;
 
@@ -14,7 +14,7 @@ public class Snake {
     public Snake(int screenWidth, int screenHeight) {
         xBound = screenWidth;
         yBound = screenHeight;
-        snakeBody.addFirst(new int [] {xBound / 2, yBound / 2});
+        resetSnek();
     }
     public boolean hasMoved() {
         return moved;
@@ -71,5 +71,11 @@ public class Snake {
         if(bodyColision(1, snakeBody.getFirst()))
             return true;
         return false;
+    }
+    public void resetSnek() {
+        direction = null;
+        moved = false;
+        snakeBody.clear();
+        snakeBody.addFirst(new int [] {xBound / 2, yBound / 2});
     }
 }
