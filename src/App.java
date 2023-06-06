@@ -77,12 +77,17 @@ public class App {
                     snek.setMoved(false);
                 }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if(gamePaused == true){
-                        gamePaused = false;
+                    if(!gameOver){
+                        if(gamePaused == true)
+                            gamePaused = false;
+                        else
+                            gamePaused = true;
+                    } else {
+                        gameOver = false;
+                        snek.resetSnek();
+                        fruit.generateFruit();
                     }
-                    else{
-                        gamePaused = true;
-                    }
+
                 }
             }
             @Override
