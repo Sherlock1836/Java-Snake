@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 public class App {
     private static final int SCREEN_WIDTH = 800;    //the screen refers to the JComponent that the game is drawn on
@@ -25,6 +24,9 @@ public class App {
     public static boolean isGamePaused() {
         return gamePaused;
     }
+    public static int getGrowRate() {
+        return GROW_RATE;
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Snake by Sherlock._.");
         //game objects
@@ -41,12 +43,7 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
                 if(!gameOver && !gamePaused) {
-                    if(fruit.isEaten())
-                        fruit.generateFruit();
-                    if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit.getFruit())){
-                        fruit.setEaten(true);
-                        snek.grow(GROW_RATE);
-                    }
+                    fruit.updateFruit();
                     score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
