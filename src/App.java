@@ -8,13 +8,39 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class App {
-    private static final int SCREEN_WIDTH = 800;    //the screen refers to the JComponent that the game is drawn on
-    private static final int SCREEN_HEIGHT = 600;
-    private static final int DELAY = 75;            //for timer (in ms)
+    private static final int DELAY = 70;            //for timer (in ms), this controls speed of game
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
     private static boolean gamePaused = false;
     private static boolean gameOver = false;
-    private static int score;    
+    private static int score; 
+    private static final int SNAKE_THICCNESS = 20;  //This is the length of the side of the snake square in pixles
+    private static final int BLOCKS_ACROSS = 37;    //Blocks across and down refers to size of the void in snake blocks
+    private static final int BLOCKS_DOWN = 27;
+    private static final int PADDING = 2;           //This is the size of the padding in snake blocks
+    private static final int SCREEN_WIDTH = SNAKE_THICCNESS * (BLOCKS_ACROSS + 2 * PADDING);    //the screen refers to the JComponent that the gameScreen is drawn on
+    private static final int SCREEN_HEIGHT = SNAKE_THICCNESS * (BLOCKS_DOWN + 2 * PADDING);     //the plus 2 allows for the padding around the void
+    private static final int xMin = SNAKE_THICCNESS * PADDING;                                        //These mins and maxs are used for the boundarys of fruit and snake
+    private static final int xMax = SCREEN_WIDTH - (SNAKE_THICCNESS * PADDING) - SNAKE_THICCNESS;
+    private static final int yMin = SNAKE_THICCNESS * PADDING;
+    private static final int yMax = SCREEN_HEIGHT - (SNAKE_THICCNESS * PADDING) - SNAKE_THICCNESS;
+    public static int getPadding() {
+        return PADDING;
+    }
+    public static int getXmin() {
+        return xMin;
+    }
+    public static int getXmax() {
+        return xMax;
+    }
+    public static int getYmin() {
+        return yMin;
+    }
+    public static int getYmax() {
+        return yMax;
+    }
+    public static int getSnakeThiccness() {
+        return SNAKE_THICCNESS;
+    }   
     public static int getScore() {
         return score;
     }
@@ -30,8 +56,8 @@ public class App {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Snake by Sherlock._.");
         //game objects
-        Snake snek = new Snake(SCREEN_WIDTH, SCREEN_HEIGHT);
-        Fruit fruit = new Fruit(snek, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Snake snek = new Snake();
+        Fruit fruit = new Fruit(snek);
         //Set up JComponent to draw on
         GameScreen gameScreen = new GameScreen(snek, fruit);
         gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -86,6 +112,8 @@ public class App {
                     }
 
                 }
+                if(e.getKeyCode() == KeyEvent.VK_G)
+                    fruit.generateFruit();
             }
             @Override
             public void keyReleased(KeyEvent e) {

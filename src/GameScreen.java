@@ -13,8 +13,10 @@ public class GameScreen extends JComponent{
 
     public void paintComponent(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(getBackground());                    //this line and the next line are what I used to get the background to work properly
-        g2D.fillRect(0, 0, getWidth(), getHeight());  //it basically fills the Screen component with black every time it's repainted (i couldn't get set background to work right)
+        g2D.setColor(new Color(12, 21, 105));
+        g2D.fillRect(0, 0, getWidth(), getHeight());        //this rectangle is for the blue padding
+        g2D.setColor(getBackground());                   
+        g2D.fillRect(App.getSnakeThiccness() * App.getPadding(), App.getSnakeThiccness() * App.getPadding(), getWidth() - App.getSnakeThiccness() * App.getPadding() * 2, getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void
         drawFruit(g2D);
         drawSnek(g2D);
         if(App.isGameOver()) {
@@ -27,24 +29,27 @@ public class GameScreen extends JComponent{
 
     public void drawFruit(Graphics2D g2D) {
         if(!fruit.isEaten()) {
+            Rectangle rect = new Rectangle(fruit.getFruit()[0], fruit.getFruit()[1], App.getSnakeThiccness(), App.getSnakeThiccness());
             g2D.setColor(Color.RED);
-            g2D.fillRect(fruit.getFruit()[0], fruit.getFruit()[1], fruit.getFruitThickness(), fruit.getFruitThickness());
+            g2D.fill(rect); 
+            g2D.setColor(Color.black);
+            g2D.draw(rect);
         }
     }
     public void drawSnek(Graphics2D g2D) {
         for(int[] segment : snek.getSnakeBody()) {
-            Rectangle rect = new Rectangle(segment[0], segment[1], snek.getSnakeThickness(), snek.getSnakeThickness());
+            Rectangle rect = new Rectangle(segment[0], segment[1], App.getSnakeThiccness(), App.getSnakeThiccness());
             g2D.setColor(Color.GREEN);
             g2D.fill(rect);
-            g2D.setColor(Color.BLACK);
+            g2D.setColor(Color.DARK_GRAY);
             g2D.draw(rect);
         }
     }
     public void drawDedSnekBlock(Graphics2D g2D) {
         g2D.setColor(Color.LIGHT_GRAY);
-        Rectangle rect = new Rectangle(snek.getSnakeBody().getFirst()[0], snek.getSnakeBody().getFirst()[1], snek.getSnakeThickness(), snek.getSnakeThickness());
+        Rectangle rect = new Rectangle(snek.getSnakeBody().getFirst()[0], snek.getSnakeBody().getFirst()[1], App.getSnakeThiccness(), App.getSnakeThiccness());
         g2D.fill(rect);
-        g2D.setColor(Color.BLACK);
+        g2D.setColor(Color.DARK_GRAY);
         g2D.draw(rect);
     }
     public void drawCenterText(Graphics2D g2D, String txt, Color color) {
