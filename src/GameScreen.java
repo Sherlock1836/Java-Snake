@@ -8,15 +8,12 @@ public class GameScreen extends JComponent{
     public GameScreen(Snake snek, Fruit fruit) {
         this.snek = snek;
         this.fruit = fruit;
-        setBackground(Color.BLACK);
     }
 
     public void paintComponent(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
-        g2D.setColor(new Color(12, 21, 105));
-        g2D.fillRect(0, 0, getWidth(), getHeight());        //this rectangle is for the blue padding
-        g2D.setColor(getBackground());                   
-        g2D.fillRect(App.getSnakeThiccness() * App.getPadding(), App.getSnakeThiccness() * App.getPadding(), getWidth() - App.getSnakeThiccness() * App.getPadding() * 2, getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void
+        drawBackground(g2D);
+        drawVoid(g2D);
         drawFruit(g2D);
         drawSnek(g2D);
         if(App.isGameOver()) {
@@ -27,6 +24,16 @@ public class GameScreen extends JComponent{
             drawCenterText(g2D, "Game Paused", Color.GRAY);
     }
 
+    public void drawBackground(Graphics2D g2D) {
+        g2D.setColor(new Color(12, 21, 105));
+        g2D.fillRect(0, 0, getWidth(), getHeight());        //this rectangle is for the blue padding
+    }
+    public void drawVoid(Graphics2D g2D) {
+        g2D.setColor(Color.BLACK);                   
+        g2D.fillRect(App.getSnakeThiccness() * App.getPadding(), App.getSnakeThiccness() * App.getPadding(), 
+                    getWidth() - App.getSnakeThiccness() * App.getPadding() * 2, 
+                    getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void
+    }
     public void drawFruit(Graphics2D g2D) {
         if(!fruit.isEaten()) {
             Rectangle rect = new Rectangle(fruit.getFruit()[0], fruit.getFruit()[1], App.getSnakeThiccness(), App.getSnakeThiccness());
