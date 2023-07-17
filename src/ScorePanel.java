@@ -21,7 +21,7 @@ public class ScorePanel extends JComponent{
         FontMetrics fm = g2D.getFontMetrics();
         int txtWidth = fm.stringWidth(txt);
         int txtHeight = fm.getHeight();
-        g2D.drawString(txt, getWidth() - txtWidth, txtHeight);
+        g2D.drawString(txt, getWidth() - txtWidth, txtHeight - 16);    //text height registers higher than it actually looks hence a buffer here
     }
     public void updatePanel() {
         repaint();

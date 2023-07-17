@@ -8,15 +8,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class App {
-    private static final int DELAY = 70;            //for timer (in ms), this controls speed of game
-    private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten
+    private static final int DELAY = 70;            //for timer (in ms, original about 70, lower it for a faster game), this controls speed of game
+    private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten (4 originally)
     private static boolean gamePaused = false;
     private static boolean gameOver = false;
-    private static int score; 
-    private static final int SNAKE_THICCNESS = 20;  //This is the length of the side of the snake square in pixles
-    private static final int BLOCKS_ACROSS = 37;    //Blocks across and down refers to size of the void in snake blocks
-    private static final int BLOCKS_DOWN = 27;
-    private static final int PADDING = 2;           //This is the size of the padding in snake blocks
+    private static int score;                       //score is just the length of the snek
+    private static final int SNAKE_THICCNESS = 20;  //This is the length of the side of the snake square in pixles (originally 20, untested with different values)...snake_thiccness constitutes the length and width of a snake block
+    private static final int BLOCKS_ACROSS = 37;    //Blocks across and down refers to size of the void (area where snake can move) in snake blocks (37, 27 originally )
+    private static final int BLOCKS_DOWN = 27;      //These values should be changeable to allow for different game sizes
+    private static final int PADDING = 1;           //This is the size of the padding (blue area around the void) in snake blocks
     private static final int SCREEN_WIDTH = SNAKE_THICCNESS * (BLOCKS_ACROSS + 2 * PADDING);    //the screen refers to the JComponent that the gameScreen is drawn on
     private static final int SCREEN_HEIGHT = SNAKE_THICCNESS * (BLOCKS_DOWN + 2 * PADDING);     //the plus 2 allows for the padding around the void
     private static final int xMin = SNAKE_THICCNESS * PADDING;                                        //These mins and maxs are used for the boundarys of fruit and snake
@@ -62,7 +62,7 @@ public class App {
         GameScreen gameScreen = new GameScreen(snek, fruit);
         gameScreen.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         ScorePanel scorePanel = new ScorePanel();
-        scorePanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT / 10));
+        scorePanel.setPreferredSize(new Dimension(SCREEN_WIDTH, PADDING * 2 * SNAKE_THICCNESS));
         
         class TimerListener implements ActionListener {
             @Override
@@ -101,18 +101,18 @@ public class App {
                 }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if(!gameOver){
-                        if(gamePaused == true)
+                        if(gamePaused == true)                //pause game if space pressed while active
                             gamePaused = false;
                         else
                             gamePaused = true;
                     } else {
-                        gameOver = false;
+                        gameOver = false;                     //Restart the game when space pressed upon death
                         snek.resetSnek();
                         fruit.generateFruit();
                     }
 
                 }
-                if(e.getKeyCode() == KeyEvent.VK_G)
+                if(e.getKeyCode() == KeyEvent.VK_G)                    //FOR TESTING REMOVE LATERR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     fruit.generateFruit();
             }
             @Override

@@ -18,7 +18,7 @@ public class GameScreen extends JComponent{
         drawSnek(g2D);
         if(App.isGameOver()) {
             drawDedSnekBlock(g2D);
-            drawCenterText(g2D, "Game Over " + App.getScore(), Color.BLUE);
+            drawCenterText(g2D, "Game Over", Color.BLUE);
         }
         if(App.isGamePaused() && !App.isGameOver())
             drawCenterText(g2D, "Game Paused", Color.GRAY);
@@ -26,13 +26,13 @@ public class GameScreen extends JComponent{
 
     public void drawBackground(Graphics2D g2D) {
         g2D.setColor(new Color(12, 21, 105));
-        g2D.fillRect(0, 0, getWidth(), getHeight());        //this rectangle is for the blue padding
+        g2D.fillRect(0, 0, getWidth(), getHeight()); //this rectangle is for the blue padding
     }
     public void drawVoid(Graphics2D g2D) {
         g2D.setColor(Color.BLACK);                   
         g2D.fillRect(App.getSnakeThiccness() * App.getPadding(), App.getSnakeThiccness() * App.getPadding(), 
                     getWidth() - App.getSnakeThiccness() * App.getPadding() * 2, 
-                    getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void
+                    getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void (playable area)
     }
     public void drawFruit(Graphics2D g2D) {
         if(!fruit.isEaten()) {
