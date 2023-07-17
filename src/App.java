@@ -54,7 +54,7 @@ public class App {
         return GROW_RATE;
     }
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Snake by Sherlock._.");
+        JFrame frame = new JFrame("Snake by Sherl0ck._.");
         //game objects
         Snake snek = new Snake();
         Fruit fruit = new Fruit(snek);
