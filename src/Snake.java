@@ -6,6 +6,7 @@ public class Snake {
     private LinkedList<int []> snakeBody = new LinkedList<int[]>();
     private String direction;
     private boolean moved;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to weird deaths
+    private int numPartsToGrow = 0;
 
     public Snake() {
         resetSnek();
@@ -19,8 +20,6 @@ public class Snake {
     public String getDirection() {
         return direction;
     }
-    private int numPartsToGrow = 0;
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
@@ -43,9 +42,11 @@ public class Snake {
            --numPartsToGrow;
         moved = true;
     }
+    
     public void grow(int growFactor) {
         numPartsToGrow += growFactor;
     }
+
     public boolean bodyColision(int startElement, int[] searchCoords) {
         ListIterator<int[]> litIt = snakeBody.listIterator(startElement);
         while(litIt.hasNext()) {
@@ -54,6 +55,7 @@ public class Snake {
         }
         return false;
     }
+
     public boolean didHeDie() {
         if(snakeBody.getFirst()[0] > App.getXmax() || snakeBody.getFirst()[1] > App.getYmax())
             return true;
@@ -63,6 +65,7 @@ public class Snake {
             return true;
         return false;
     }
+
     public void resetSnek() {
         direction = null;
         moved = false;

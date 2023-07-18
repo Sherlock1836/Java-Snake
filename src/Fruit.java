@@ -10,7 +10,7 @@ public class Fruit {
     public Fruit(Snake snek) {
         this.snek = snek;
     }
-    
+
     public void setEaten(boolean isEaten) {
         this.isEaten = isEaten;
     }
@@ -32,9 +32,11 @@ public class Fruit {
         fruit[1] = y;
         isEaten = false;
     }
+
     public int genRandCoord(int min, int max) {
         return App.getSnakeThiccness() * rand.nextInt(min / App.getSnakeThiccness(), max / App.getSnakeThiccness() + 1);
     }
+
     public void updateFruit() {
         if(isEaten())
             generateFruit();

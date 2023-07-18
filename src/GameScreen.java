@@ -28,12 +28,14 @@ public class GameScreen extends JComponent{
         g2D.setColor(new Color(12, 21, 105));
         g2D.fillRect(0, 0, getWidth(), getHeight()); //this rectangle is for the blue padding
     }
+
     public void drawVoid(Graphics2D g2D) {
         g2D.setColor(Color.BLACK);                   
         g2D.fillRect(App.getSnakeThiccness() * App.getPadding(), App.getSnakeThiccness() * App.getPadding(), 
                     getWidth() - App.getSnakeThiccness() * App.getPadding() * 2, 
                     getHeight() - App.getSnakeThiccness() * App.getPadding() * 2); //this rectangle is for the void (playable area)
     }
+
     public void drawFruit(Graphics2D g2D) {
         if(!fruit.isEaten()) {
             Rectangle rect = new Rectangle(fruit.getFruit()[0], fruit.getFruit()[1], App.getSnakeThiccness(), App.getSnakeThiccness());
@@ -43,6 +45,7 @@ public class GameScreen extends JComponent{
             g2D.draw(rect);
         }
     }
+
     public void drawSnek(Graphics2D g2D) {
         for(int[] segment : snek.getSnakeBody()) {
             Rectangle rect = new Rectangle(segment[0], segment[1], App.getSnakeThiccness(), App.getSnakeThiccness());
@@ -52,6 +55,7 @@ public class GameScreen extends JComponent{
             g2D.draw(rect);
         }
     }
+
     public void drawDedSnekBlock(Graphics2D g2D) {
         g2D.setColor(Color.LIGHT_GRAY);
         Rectangle rect = new Rectangle(snek.getSnakeBody().getFirst()[0], snek.getSnakeBody().getFirst()[1], App.getSnakeThiccness(), App.getSnakeThiccness());
@@ -59,6 +63,7 @@ public class GameScreen extends JComponent{
         g2D.setColor(Color.DARK_GRAY);
         g2D.draw(rect);
     }
+    
     public void drawCenterText(Graphics2D g2D, String txt, Color color) {
         g2D.setFont(new Font("Arial Black", Font.PLAIN, 32));
         FontMetrics fm = g2D.getFontMetrics();
