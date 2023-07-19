@@ -62,7 +62,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Snake by Sherl0ck._.");
+        JFrame frame = new JFrame("Snek by Sherl0ck._.");
         //game objects
         Snake snek = new Snake();
         Fruit fruit = new Fruit(snek);
