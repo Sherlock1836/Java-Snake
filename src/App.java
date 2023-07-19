@@ -14,7 +14,7 @@ public class App {
     private static boolean gameOver = false;
     private static int score;                       //score is just the length of the snek
     private static int bestScore;                   //best score obtained by player (saves to a file)
-    private static final String SAVE_PATH = System.getProperty("user.home") + "\\OneDrive\\Documents\\My Games\\Sherl0ck's_Snek\\";    //path for txt file that stores saved score
+    private static final String SAVE_PATH = System.getProperty("user.home") + "\\OneDrive\\Documents\\My Games\\Snek_by_Sherl0ck._.\\";    //path for txt file that stores saved score
     private static final String SAVE_FILE_NAME = "bestSnekScore.txt";    //the name of the save file
     private static final int SNAKE_THICCNESS = 20;  //This is the length of the side of the snake square in pixles (originally 20, untested with different values)...snake_thiccness constitutes the length and width of a snake block
     private static final int BLOCKS_ACROSS = 37;    //Blocks across and down refers to size of the void (area where snake can move) in snake blocks (37, 27 originally )
