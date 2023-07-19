@@ -4,16 +4,11 @@ import java.util.ListIterator;
 
 public class Snake {
     private LinkedList<int []> snakeBody = new LinkedList<int[]>();
-    private int snakeThickness = 20;
     private String direction;
-    private boolean moved;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to wierd deaths
-    private int xBound;
-    private int yBound;
+    private boolean moved;     //This is used to fix a bug in the input handler that allowed direction to change multiple times before snake had moved which could lead to weird deaths
+    private int numPartsToGrow = 0;
 
-
-    public Snake(int screenWidth, int screenHeight) {
-        xBound = screenWidth;
-        yBound = screenHeight;
+    public Snake() {
         resetSnek();
     }
     public boolean hasMoved() {
@@ -25,13 +20,8 @@ public class Snake {
     public String getDirection() {
         return direction;
     }
-    private int numPartsToGrow = 0;
-
     public void setDirection(String direction) {
         this.direction = direction;
-    }
-    public int getSnakeThickness() {
-        return snakeThickness;
     }
     public LinkedList<int[]> getSnakeBody() {
         return snakeBody;
@@ -39,22 +29,24 @@ public class Snake {
 
     public void move() {
         if(direction == "up")
-            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0], snakeBody.getFirst()[1] - snakeThickness});
+            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0], snakeBody.getFirst()[1] - App.getSnakeThiccness()});
         if(direction == "down")
-            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0], snakeBody.getFirst()[1] + snakeThickness});
+            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0], snakeBody.getFirst()[1] + App.getSnakeThiccness()});
         if(direction == "left")
-            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0] - snakeThickness, snakeBody.getFirst()[1]});
+            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0] - App.getSnakeThiccness(), snakeBody.getFirst()[1]});
         if(direction == "right")
-            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0] + snakeThickness, snakeBody.getFirst()[1]});
+            snakeBody.addFirst(new int [] {snakeBody.getFirst()[0] + App.getSnakeThiccness(), snakeBody.getFirst()[1]});
         if(direction != null && numPartsToGrow == 0)
             snakeBody.removeLast();
         if(numPartsToGrow != 0)
            --numPartsToGrow;
         moved = true;
     }
+    
     public void grow(int growFactor) {
         numPartsToGrow += growFactor;
     }
+
     public boolean bodyColision(int startElement, int[] searchCoords) {
         ListIterator<int[]> litIt = snakeBody.listIterator(startElement);
         while(litIt.hasNext()) {
@@ -63,19 +55,21 @@ public class Snake {
         }
         return false;
     }
+
     public boolean didHeDie() {
-        if(snakeBody.getFirst()[0] >= xBound || snakeBody.getFirst()[1] >= yBound)
+        if(snakeBody.getFirst()[0] > App.getXmax() || snakeBody.getFirst()[1] > App.getYmax())
             return true;
-        if(snakeBody.getFirst()[0] < 0 || snakeBody.getFirst()[1] < 0)    //doesn't use "or equal to" because the snake is still within bounds at (0, 0)
+        if(snakeBody.getFirst()[0] < App.getXmin() || snakeBody.getFirst()[1] < App.getYmin())    //doesn't use "or equal to" because the snake is still within bounds at (0, 0)
             return true;
         if(bodyColision(1, snakeBody.getFirst()))
             return true;
         return false;
     }
+
     public void resetSnek() {
         direction = null;
         moved = false;
         snakeBody.clear();
-        snakeBody.addFirst(new int [] {xBound / 2, yBound / 2});
+        snakeBody.addFirst(new int [] {App.getXmax() / App.getSnakeThiccness() / 2 * App.getSnakeThiccness(), App.getYmax() / App.getSnakeThiccness() / 2 * App.getSnakeThiccness()});  
     }
 }

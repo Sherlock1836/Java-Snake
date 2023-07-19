@@ -4,19 +4,13 @@ import java.util.Arrays;
 public class Fruit {
     private Snake snek;
     private int[] fruit = new int[2];
-    private int fruitThickness;
     private Random rand = new Random();
-    private int xBound;
-    private int yBound;
     private boolean isEaten = true;
 
-    public Fruit(Snake snek, int screenWidth, int screenHeight) {
+    public Fruit(Snake snek) {
         this.snek = snek;
-        fruitThickness = snek.getSnakeThickness();
-        xBound = screenWidth;
-        yBound = screenHeight;
     }
-    
+
     public void setEaten(boolean isEaten) {
         this.isEaten = isEaten;
     }
@@ -26,24 +20,23 @@ public class Fruit {
     public int[] getFruit() {
         return fruit;
     }
-    public int getFruitThickness() {
-        return fruitThickness;
-    }
     
     public void generateFruit() {
-        int x = genRandCoord(xBound);
-        int y = genRandCoord(yBound);
+        int x = genRandCoord(App.getXmin(), App.getXmax());
+        int y = genRandCoord(App.getYmin(), App.getYmax());
         while(snek.bodyColision(0, new int[] {x, y})) {
-            x = genRandCoord(xBound);
-            y = genRandCoord(yBound);
+            x = genRandCoord(App.getXmin(), App.getXmax());
+            y = genRandCoord(App.getYmin(), App.getYmax());
         } 
         fruit[0] = x;
         fruit[1] = y;
         isEaten = false;
     }
-    public int genRandCoord(int bound) {
-        return fruitThickness * rand.nextInt(0, (bound - fruitThickness) / fruitThickness + 1);
+
+    public int genRandCoord(int min, int max) {
+        return App.getSnakeThiccness() * rand.nextInt(min / App.getSnakeThiccness(), max / App.getSnakeThiccness() + 1);
     }
+
     public void updateFruit() {
         if(isEaten())
             generateFruit();
