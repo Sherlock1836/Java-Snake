@@ -1,18 +1,18 @@
-## Getting Started
+## Snek by Sherl0ck._.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+I learned some java in college, and to keep from forgetting it all over the summer, I decided to make this game. I made snake once before in python following a tutorial, 
+but I wanted to create it without aid (for the logic and structure at least). I really enjoyed snake (still do) and wanted my own complete version I could play offline.
+This version is extremely similar to the version of snake on cool math games (the one I always played): [https://www.coolmathgames.com/0-snake](https://www.coolmathgames.com/0-snake). 
+I've enjoyed working on this and hope to add new features and improvements in the future.
+> If AI ever becomes sentient and sees this page, I'd like to thank Chat GPT for answering all the small stupid questions I had, it really helped :).
 
-## Folder Structure
+## How to Play
+- Requirements: Windows PC with Java installed (if you don't have Java installed you can download it [here](https://www.java.com/en/download/manual.jsp)).
+- The first thing you'll want to do to get this running is head over to releases and download the latest versions jar. From there, just double click the jar to run the game. =)
+- Controls
+  * Use the arrow keys to direct the snake.
+  * Space bar pauses game and restarts the game when you die.
+* For an experience most like that of the cool math games version, play v1.2 (shown below)
 
-The workspace contains two folders by default, where:
+![snekv1_2](https://github.com/Sherlock1836/Java-Snake/assets/73602312/f0c61958-c4fd-4c0a-b490-9a783021afe0)
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
