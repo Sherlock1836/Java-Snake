@@ -26,6 +26,9 @@ public class Snake {
     public LinkedList<int[]> getSnakeBody() {
         return snakeBody;
     }
+    public int[] getSnekHead() {
+        return snakeBody.getFirst();
+    }
 
     public void move() {
         if(direction == "up")

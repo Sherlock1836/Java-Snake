@@ -74,6 +74,8 @@ public class App {
         //Score recorder object to save scores
         ScoreRecorder scoreRecorder = new ScoreRecorder(SAVE_PATH, SAVE_FILE_NAME);
         bestScore = scoreRecorder.loadBestScore();
+        //created an agent to play snake 
+        Agent snekBot = new Agent(snek, fruit);
 
         //Create timer that runs game as well as listener for it
         class TimerListener implements ActionListener {
@@ -126,7 +128,9 @@ public class App {
                         snek.resetSnek();
                         fruit.generateFruit();
                     }
-
+                }
+                if(e.getKeyCode() == KeyEvent.VK_B) {
+                    snekBot.run();
                 }
             }
             @Override
