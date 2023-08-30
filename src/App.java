@@ -83,6 +83,7 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 //GAME LOOP
                 if(!gameOver && !gamePaused) {
+                    snekBot.play();
                     fruit.updateFruit();
                     score = snek.getSnakeBody().size();
                     snek.move();
@@ -128,9 +129,6 @@ public class App {
                         snek.resetSnek();
                         fruit.generateFruit();
                     }
-                }
-                if(e.getKeyCode() == KeyEvent.VK_B) {
-                    snekBot.run();
                 }
             }
             @Override
