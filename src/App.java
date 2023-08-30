@@ -83,15 +83,15 @@ public class App {
             public void actionPerformed(ActionEvent e) {
                 //GAME LOOP
                 if(!gameOver && !gamePaused) {
-                    snekBot.play();
                     fruit.updateFruit();
                     score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
+                    snekBot.play();
                     if(gameOver && score > bestScore){
                         scoreRecorder.saveBestScore(score);
                         bestScore = scoreRecorder.loadBestScore();
-                    }                                                        
+                    }                                                       
                 }
                 gameScreen.updateScreen();
                 scorePanel.updatePanel();

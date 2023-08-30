@@ -18,25 +18,25 @@ public class Agent {
 
     public void play() {
         if(snek.getDirection() == "right"){
-            if(snek.getSnekHead()[0] == App.getXmax() - App.getSnakeThiccness())
+            if(snek.getSnekHead()[0] == App.getXmax())
                 newDirection = "down";
             if(fruit.getFruit()[0] <= snek.getSnekHead()[0])
                 newDirection = "down";
         }
         if(snek.getDirection() == "down"){
-            if(snek.getSnekHead()[1] == App.getYmax() - App.getSnakeThiccness())
+            if(snek.getSnekHead()[1] == App.getYmax())
                 newDirection = "left";
             if(fruit.getFruit()[1] <= snek.getSnekHead()[1])
                 newDirection = "left";
         }
         if(snek.getDirection() == "left"){
-            if(snek.getSnekHead()[0] == App.getXmin() + App.getSnakeThiccness())
+            if(snek.getSnekHead()[0] == App.getXmin())
                 newDirection = "up";
             if(fruit.getFruit()[0] >= snek.getSnekHead()[0])
                 newDirection = "up";
         }
         if(snek.getDirection() == "up"){
-            if(snek.getSnekHead()[1] == App.getYmin() + App.getSnakeThiccness())
+            if(snek.getSnekHead()[1] == App.getYmin())
                 newDirection = "right";
             if(fruit.getFruit()[1] >= snek.getSnekHead()[1])
                 newDirection = "right";
