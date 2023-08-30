@@ -1,13 +1,10 @@
 import java.awt.AWTException;
-import java.awt.GraphicsDevice;
 import java.awt.Robot;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 public class Agent {
     private Robot bot;
     private Snake snek;
     private Fruit fruit;
-    private boolean running = true;
     private String newDirection;
     public Agent(Snake snek, Fruit fruit) {
         this.snek = snek;
