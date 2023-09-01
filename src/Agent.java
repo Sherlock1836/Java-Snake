@@ -5,7 +5,18 @@ public class Agent {
     private Robot bot;
     private Snake snek;
     private Fruit fruit;
-    private String newDirection;
+    private String newDirection = null;  //this is the action with action space being left, right, up, down
+    //environment variables (yes some already exist elsewhere but for this class it's easier to think ab if they all grouped together and have short name)
+    private final int X_MAX = App.getXmax();
+    private final int X_MIN = App.getXmin();
+    private final int Y_MIN = App.getYmin();
+    private final int Y_MAX = App.getYmax();
+    private int fruitX;
+    private int fruitY;
+    private int headX;
+    private int headY;
+    private String curDirection;
+
     public Agent(Snake snek, Fruit fruit) {
         this.snek = snek;
         this.fruit = fruit;
@@ -15,36 +26,26 @@ public class Agent {
             e.printStackTrace();
         }
     }
-
+    public void updateState() {
+        headX = snek.getSnekHead()[0];
+        headY = snek.getSnekHead()[1];
+        fruitX = fruit.getFruit()[0];
+        fruitY = fruit.getFruit()[1];
+        curDirection = snek.getDirection();
+    }
     public void play() {
-        if(snek.getDirection() == "right"){
-            if(snek.getSnekHead()[0] == App.getXmax())
-                newDirection = "down";
-            if(fruit.getFruit()[0] <= snek.getSnekHead()[0])
-                newDirection = "down";
-        }
-        if(snek.getDirection() == "down"){
-            if(snek.getSnekHead()[1] == App.getYmax())
-                newDirection = "left";
-            if(fruit.getFruit()[1] <= snek.getSnekHead()[1])
-                newDirection = "left";
-        }
-        if(snek.getDirection() == "left"){
-            if(snek.getSnekHead()[0] == App.getXmin())
-                newDirection = "up";
-            if(fruit.getFruit()[0] >= snek.getSnekHead()[0])
-                newDirection = "up";
-        }
-        if(snek.getDirection() == "up"){
-            if(snek.getSnekHead()[1] == App.getYmin())
-                newDirection = "right";
-            if(fruit.getFruit()[1] >= snek.getSnekHead()[1])
-                newDirection = "right";
-        }
-        
-        if(snek.getDirection() == null)
+        updateState();
+
+        if(curDirection == null)
             newDirection = "right";
         clickKey();
+        newDirection = null;
+    }
+    public void ninetyTurn() {
+
+    }
+    public void eightyTurn() {
+
     }
     public void clickKey() {
         if(newDirection == "up"){

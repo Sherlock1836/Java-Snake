@@ -12,6 +12,7 @@ public class App {
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten (4 originally)
     private static boolean gamePaused = false;
     private static boolean gameOver = false;
+    private static boolean botActive = false;
     private static int score;                       //score is just the length of the snek
     private static int bestScore;                   //best score obtained by player (saves to a file)
     private static final String SAVE_PATH = System.getProperty("user.home") + "\\OneDrive\\Documents\\My Games\\Sherl0ck's_Snek\\";    //path for txt file that stores saved score
@@ -57,6 +58,9 @@ public class App {
     public static boolean isGamePaused() {
         return gamePaused;
     }
+    public static void setBotActive() {
+        botActive = !botActive;
+    }
     public static int getGrowRate() {
         return GROW_RATE;
     }
@@ -77,6 +81,7 @@ public class App {
         //created an agent to play snake 
         Agent snekBot = new Agent(snek, fruit);
 
+
         //Create timer that runs game as well as listener for it
         class TimerListener implements ActionListener {
             @Override
@@ -87,7 +92,8 @@ public class App {
                     score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
-                    snekBot.play();
+                    if(botActive)
+                        snekBot.play();
                     if(gameOver && score > bestScore){
                         scoreRecorder.saveBestScore(score);
                         bestScore = scoreRecorder.loadBestScore();
@@ -120,10 +126,7 @@ public class App {
                 }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if(!gameOver){
-                        if(gamePaused == true)                //pause game if space pressed while active
-                            gamePaused = false;
-                        else
-                            gamePaused = true;
+                        gamePaused = !gamePaused;
                     } else {
                         gameOver = false;                     //Restart the game when space pressed upon death
                         snek.resetSnek();

@@ -1,11 +1,29 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 
 public class ScorePanel extends JComponent{
+    private JButton botButton;
+
     public ScorePanel() {
         setBackground(new Color(12, 21, 105));
+        
+        botButton = new JButton("Activate Bot");
+        botButton.setFont(new Font("Arial Black", Font.PLAIN, 16));
+        FontMetrics fm = botButton.getFontMetrics(new Font("Arial Black", Font.PLAIN, 16));
+        botButton.setBounds(250, getHeight() / 2, 150, fm.getHeight());
+        botButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                App.setBotActive();
+            }
+        });
+        botButton.setFocusable(false);
+        add(botButton);
     }
 
     public void paintComponent(Graphics g) {
