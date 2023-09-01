@@ -6,7 +6,7 @@ public class Agent {
     private Snake snek;
     private Fruit fruit;
     private String newDirection = null;  //this is the action with action space being left, right, up, down
-    //environment variables (yes some already exist elsewhere but for this class it's easier to think ab if they all grouped together and have short name)
+    //environment variables (yes some already exist elsewhere but for this class it's easier to think ab for me if they all grouped together and have short name =))
     private final int X_MAX = App.getXmax();
     private final int X_MIN = App.getXmin();
     private final int Y_MIN = App.getYmin();
@@ -36,16 +36,24 @@ public class Agent {
     public void play() {
         updateState();
 
+        //main bot logic will go here
+
         if(curDirection == null)
             newDirection = "right";
         clickKey();
         newDirection = null;
     }
     public void ninetyTurn() {
-
+        //need to figure out how to code this mech
+        //90 deg turn
     }
     public void eightyTurn() {
-
+        //need to figure out how to code this mech
+        //180 deg turn
+    }
+    public void coilSnek() {
+        //need to figure out how to code this mech
+        //this references the way you keep the snake bunched up to keep from having the body all over the place where its easy to hit
     }
     public void clickKey() {
         if(newDirection == "up"){

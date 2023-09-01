@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
@@ -13,13 +12,23 @@ public class ScorePanel extends JComponent{
         setBackground(new Color(12, 21, 105));
         
         botButton = new JButton("Activate Bot");
+        botButton.setBackground(new Color(38, 239, 89, 95));
+        botButton.setForeground(Color.BLACK);
         botButton.setFont(new Font("Arial Black", Font.PLAIN, 16));
-        FontMetrics fm = botButton.getFontMetrics(new Font("Arial Black", Font.PLAIN, 16));
-        botButton.setBounds(250, getHeight() / 2, 150, fm.getHeight());
+        FontMetrics fontMetrics = botButton.getFontMetrics(new Font("Arial Black", Font.PLAIN, 16));
+        botButton.setBounds(285, 0, 170, fontMetrics.getHeight());
+        botButton.setRolloverEnabled(false);
         botButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 App.setBotActive();
+                if(App.getBotActive()){
+                    botButton.setText("Deactivate Bot");
+                    botButton.setBackground(new Color(235, 17, 24, 95));
+                } else {
+                    botButton.setText("Activate Bot");
+                    botButton.setBackground(new Color(38, 239, 89, 95));
+                }
             }
         });
         botButton.setFocusable(false);

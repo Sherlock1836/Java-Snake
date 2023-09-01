@@ -61,6 +61,9 @@ public class App {
     public static void setBotActive() {
         botActive = !botActive;
     }
+    public static boolean getBotActive() {
+        return botActive;
+    }
     public static int getGrowRate() {
         return GROW_RATE;
     }
