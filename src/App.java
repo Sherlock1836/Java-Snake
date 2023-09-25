@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class App {
-    private static final int DELAY = 70;            //for timer (in ms, original about 70, lower it for a faster game), this controls speed of game
+    private static final int DELAY = 500;            //for timer (in ms, original about 70, lower it for a faster game), this controls speed of game
     private static final int GROW_RATE = 4;         //variable for how many blocks snake grows by when fruit is eaten (4 originally)
     private static boolean gamePaused = false;
     private static boolean gameOver = false;
@@ -95,8 +95,6 @@ public class App {
                     score = snek.getSnakeBody().size();
                     snek.move();
                     gameOver = snek.didHeDie();
-                    if(botActive)
-                        snekBot.play();
                     if(gameOver && score > bestScore){
                         scoreRecorder.saveBestScore(score);
                         bestScore = scoreRecorder.loadBestScore();
@@ -104,6 +102,8 @@ public class App {
                 }
                 gameScreen.updateScreen();
                 scorePanel.updatePanel();
+                if(botActive && !gameOver && !gamePaused)
+                    snekBot.play();
             }
         }
         Timer ticker = new Timer(DELAY, new TimerListener());
