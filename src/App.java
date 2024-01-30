@@ -28,6 +28,12 @@ public class App {
     private static final int yMin = SNAKE_THICCNESS * PADDING;
     private static final int yMax = SCREEN_HEIGHT - (SNAKE_THICCNESS * PADDING) - SNAKE_THICCNESS;
     
+    public static int getBlocksAcross() {
+        return BLOCKS_ACROSS;
+    }
+    public static int getBlocksDown() {
+        return BLOCKS_DOWN;
+    }
     public static int getPadding() {
         return PADDING;
     }
