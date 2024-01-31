@@ -60,8 +60,8 @@ public class Agent {
 
     public void getDirections() {
         PathFinder.setGameMatrix(snekBody);
-        PathFinder.setStart(headX, headY);
         PathFinder.setGoal(fruitX, fruitY);
+        PathFinder.setStart(headX, headY);
         //main bot logic here
         path = PathFinder.runPathFinder();
     }
