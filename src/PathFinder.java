@@ -7,9 +7,10 @@ import java.util.Queue;
 public class PathFinder {
     private static MatrixNode start;
     private static MatrixNode goal;
-    private static MatrixNode[][] gameMatrix = new MatrixNode[App.getBlocksAcross()][App.getBlocksDown()];
-    private Queue<MatrixNode> frontier;
-    private HashMap<MatrixNode, MatrixNode> cameFrom;
+    private static MatrixNode[][] gameMatrix = new MatrixNode[][];
+    private static Queue<MatrixNode> frontier;
+    private static HashMap<MatrixNode, MatrixNode> cameFrom;
+    private static LinkedList<MatrixNode> path;
     
     public static void setStart(int x, int y) {
         start = new MatrixNode(x, y, false);
@@ -22,7 +23,7 @@ public class PathFinder {
     public static void setGameMatrix(LinkedList<int[]> snekBody) {
         for(int x = App.getXmin(); x <= App.getXmax(); x += App.getSnakeThiccness()) {
             for(int y = App.getYmin(); x <= App.getYmax(); x += App.getSnakeThiccness()) {
-                gameMatrix[x][y] = new MatrixNode(x, y, false);
+                gameMatrix[x - App.getXmin()][y - App.getYmin()] = new MatrixNode(x, y, false);
             }
         }
         for(int[] segment : snekBody) {
@@ -30,15 +31,20 @@ public class PathFinder {
         }
     }
 
-    public void runPathFinder(){
+    public static LinkedList<MatrixNode> runPathFinder(){
         frontier = new LinkedList<MatrixNode>();
         cameFrom = new HashMap<MatrixNode, MatrixNode>();
         MatrixNode current;
 
+        //create paths using breadth first search
         frontier.add(start);
         cameFrom.put(start, null);
         while(!frontier.isEmpty()){
             current = frontier.poll();
+
+            if(current.equals(goal))
+                break;
+
             for(MatrixNode next : getNeighbors(current)){
                 if(!cameFrom.containsKey(next)){
                     frontier.add(next);
@@ -46,9 +52,16 @@ public class PathFinder {
                 }
             }
         }
+        //create path to goal
+        current = goal;
+        while(!current.equals(start)){
+            path.add(current);
+            current = cameFrom.get(current);
+        }
+        return path;
     }
 
-    private ArrayList<MatrixNode> getNeighbors(MatrixNode node) {
+    private static ArrayList<MatrixNode> getNeighbors(MatrixNode node) {
         ArrayList<MatrixNode> neighbors = new ArrayList<MatrixNode>();
         if(node.y - 1 >= App.getYmin() && !gameMatrix[node.x][node.y - 1].isWall)
             neighbors.add(gameMatrix[node.x][node.y - 1]);

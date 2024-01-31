@@ -7,12 +7,14 @@ public class Agent {
     private Snake snek;
     private Fruit fruit;
     
-    private String curDirection;
+    private String newDirection;
     private LinkedList<int[]> snekBody;
     private int headX;
     private int headY;
     private int fruitX;
     private int fruitY;
+
+    private LinkedList<MatrixNode> path;
 
     public Agent(Snake snek, Fruit fruit) {
         this.snek = snek;
@@ -28,21 +30,35 @@ public class Agent {
         headY = snek.getSnekHead()[1];
         fruitX = fruit.getFruit()[0];
         fruitY = fruit.getFruit()[1];
-        curDirection = snek.getDirection();
         snekBody = snek.getSnakeBody();
     }
+
     public void play() {
         updateState();
+        if(path == null || path.isEmpty()){
+            getDirections();
+        }
+        MatrixNode nextNode = path.pollLast();
+        if(nextNode.x > headX)
+            newDirection = "right";
+        if(nextNode.x < headX)
+            newDirection = "left";
+        if(nextNode.y > headY)
+            newDirection = "down";
+        if(nextNode.y < headY)
+            newDirection = "up";
+        clickKey();
+    }
+
+    public void getDirections() {
         PathFinder.setGameMatrix(snekBody);
         PathFinder.setStart(headX, headY);
         PathFinder.setGoal(fruitX, fruitY);
         //main bot logic here
-        
-        clickKey();
+        path = PathFinder.runPathFinder();
     }
 
     public void clickKey() {
-        String newDirection = null; //add way to get new direction
         if(newDirection == "up"){
             bot.keyPress(KeyEvent.VK_UP);
             bot.keyRelease(KeyEvent.VK_UP);
