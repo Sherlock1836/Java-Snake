@@ -16,10 +16,12 @@ public class PathFinder {
     
     public static void setStart(int x, int y) {
         start = gameMatrix[x / t - p][y / t - p];
+        start.dir = 1;
     }
 
     public static void setGoal(int x, int y) {
         goal = gameMatrix[x / t - p][y / t - p];
+        goal.dir = 4;
     }
 
     public static void reset() {
@@ -61,9 +63,19 @@ public class PathFinder {
                 if(!cameFrom.containsKey(next)){
                     frontier.add(next);
                     cameFrom.put(next, current);
+                    if(next.y > current.y)
+                        next.dir = 12;
+                    if(next.y < current.y)
+                        next.dir = 6;
+                    if(next.x > current.x)
+                        next.dir = 9;
+                    if(next.x < current.x)
+                        next.dir = 3;
                 }
             }
         }
+        goal.dir = 4;
+        printPathstoStart();
         //create path to goal
         current = goal;
         try{
@@ -77,19 +89,51 @@ public class PathFinder {
         return path;
     }
 
+    private static void printPathstoStart() {
+        System.out.println("");
+        for(int y=0; y < App.getBlocksDown(); y++){
+            System.out.println("");
+            for(int x=0; x < App.getBlocksAcross(); x++){
+                    switch (gameMatrix[x][y].dir) {
+                        case 12: System.out.print("^");
+                                break;
+                        case 3: System.out.print(">");
+                                break;
+                        case 6: System.out.print("v");
+                                break;
+                        case 9: System.out.print("<");
+                                break;
+                        case 7: System.out.print("O");
+                                break;
+                        case 1: System.out.print("1");
+                                break;
+                        case 4: System.out.print("*");
+                                break;
+                        default: System.out.print("0");
+                                break;
+                    }
+                    System.out.print(" ");
+            }
+        }
+    }
+
     private static ArrayList<MatrixNode> getNeighbors(MatrixNode node) {
         ArrayList<MatrixNode> neighbors = new ArrayList<MatrixNode>();
         if(node.y - t >= App.getYmin() && node.x - t >= App.getXmin()) {
-            if(!gameMatrix[node.x / t - p][node.y / t - p - 1].isWall)
+            if(!gameMatrix[node.x / t - p][node.y / t - p - 1].isWall){
                 neighbors.add(gameMatrix[node.x / t - p][node.y / t - p - 1]);
-            if(!gameMatrix[node.x / t - p - 1][node.y / t - p].isWall)
+            }
+            if(!gameMatrix[node.x / t - p - 1][node.y / t - p].isWall){
                 neighbors.add(gameMatrix[node.x / t - p - 1][node.y / t - p]);
+            }
         }   
         if(node.y + t <= App.getYmax() && node.x + t <= App.getXmax()) {
-            if(!gameMatrix[node.x / t - p][node.y / t - p + 1].isWall)
+            if(!gameMatrix[node.x / t - p][node.y / t - p + 1].isWall){
                 neighbors.add(gameMatrix[node.x / t - p][node.y / t - p + 1]);
-            if(!gameMatrix[node.x / t - p + 1][node.y / t - p].isWall)
+            }
+            if(!gameMatrix[node.x / t - p + 1][node.y / t - p].isWall){
                 neighbors.add(gameMatrix[node.x / t - p + 1][node.y / t - p]);
+            }
         }
         return neighbors;
     }
