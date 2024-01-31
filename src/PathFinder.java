@@ -57,9 +57,13 @@ public class PathFinder {
         }
         //create path to goal
         current = goal;
-        while(!(current == null) && !current.equals(start)){
-            path.add(current);
-            current = cameFrom.get(current);
+        try{
+            while(!current.equals(start)){
+                path.add(current);
+                current = cameFrom.get(current);
+            }
+        } catch(NullPointerException e) {
+            System.out.println("No path found");
         }
         return path;
     }

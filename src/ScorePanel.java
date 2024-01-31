@@ -12,7 +12,7 @@ public class ScorePanel extends JComponent{
         setBackground(new Color(12, 21, 105));
         
         botButton = new JButton("Activate Bot");
-        botButton.setBackground(new Color(38, 239, 89, 95));
+        botButton.setBackground(new Color(49, 168, 51));
         botButton.setForeground(Color.BLACK);
         botButton.setFont(new Font("Arial Black", Font.PLAIN, 16));
         FontMetrics fontMetrics = botButton.getFontMetrics(new Font("Arial Black", Font.PLAIN, 16));
@@ -24,10 +24,10 @@ public class ScorePanel extends JComponent{
                 App.setBotActive();
                 if(App.getBotActive()){
                     botButton.setText("Deactivate Bot");
-                    botButton.setBackground(new Color(235, 17, 24, 95));
+                    botButton.setBackground(new Color(196, 55, 55));
                 } else {
                     botButton.setText("Activate Bot");
-                    botButton.setBackground(new Color(38, 239, 89, 95));
+                    botButton.setBackground(new Color(49, 168, 51));
                 }
             }
         });
