@@ -22,6 +22,15 @@ public class PathFinder {
         goal = gameMatrix[x / t - p][y / t - p];
     }
 
+    public static void reset() {
+        start = null;
+        goal = null;
+        gameMatrix = null;
+        frontier.clear();
+        cameFrom.clear();
+        path.clear();
+    }
+
     public static void setGameMatrix(LinkedList<int[]> snekBody) {
         for(int x = App.getXmin(); x <= App.getXmax(); x += t) {
             for(int y = App.getYmin(); y <= App.getYmax(); y += t) {

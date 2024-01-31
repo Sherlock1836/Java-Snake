@@ -25,6 +25,12 @@ public class Agent {
             e.printStackTrace();
         }
     }
+
+    public void resetBot() {
+        path.clear();
+        PathFinder.reset();
+    }
+
     public void updateState() {
         headX = snek.getSnekHead()[0];
         headY = snek.getSnekHead()[1];
