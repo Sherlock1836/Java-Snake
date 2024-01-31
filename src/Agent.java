@@ -39,14 +39,16 @@ public class Agent {
             getDirections();
         }
         MatrixNode nextNode = path.pollLast();
-        if(nextNode.x > headX)
-            newDirection = "right";
-        if(nextNode.x < headX)
-            newDirection = "left";
-        if(nextNode.y > headY)
-            newDirection = "down";
-        if(nextNode.y < headY)
-            newDirection = "up";
+        if(!(nextNode == null)){
+            if(nextNode.x > headX)
+                newDirection = "right";
+            if(nextNode.x < headX)
+                newDirection = "left";
+            if(nextNode.y > headY)
+                newDirection = "down";
+            if(nextNode.y < headY)
+                newDirection = "up";
+        }
         clickKey();
     }
 

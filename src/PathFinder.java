@@ -7,34 +7,37 @@ import java.util.Queue;
 public class PathFinder {
     private static MatrixNode start;
     private static MatrixNode goal;
-    private static MatrixNode[][] gameMatrix = new MatrixNode[][];
+    private static MatrixNode[][] gameMatrix = new MatrixNode[App.getBlocksAcross()][App.getBlocksDown()];
     private static Queue<MatrixNode> frontier;
     private static HashMap<MatrixNode, MatrixNode> cameFrom;
     private static LinkedList<MatrixNode> path;
+    private static int t = App.getSnakeThiccness();
+    private static int p = App.getPadding();
     
     public static void setStart(int x, int y) {
-        start = new MatrixNode(x, y, false);
+        start = gameMatrix[x / t - p][y / t - p];
     }
 
     public static void setGoal(int x, int y) {
-        goal = new MatrixNode(x, y, false);
+        goal = gameMatrix[x / t - p][y / t - p];
     }
 
     public static void setGameMatrix(LinkedList<int[]> snekBody) {
-        for(int x = App.getXmin(); x <= App.getXmax(); x += App.getSnakeThiccness()) {
-            for(int y = App.getYmin(); x <= App.getYmax(); x += App.getSnakeThiccness()) {
-                gameMatrix[x - App.getXmin()][y - App.getYmin()] = new MatrixNode(x, y, false);
+        for(int x = App.getXmin(); x <= App.getXmax(); x += t) {
+            for(int y = App.getYmin(); y <= App.getYmax(); y += t) {
+                gameMatrix[x / t - p][y / t - p] = new MatrixNode(x, y, false);
             }
         }
         for(int[] segment : snekBody) {
-            gameMatrix[segment[0]][segment[1]] = new MatrixNode(segment[0], segment[1], true);
+            gameMatrix[segment[0] / t - p][segment[1] / t - p] = new MatrixNode(segment[0], segment[1], true);
         }
     }
 
     public static LinkedList<MatrixNode> runPathFinder(){
         frontier = new LinkedList<MatrixNode>();
         cameFrom = new HashMap<MatrixNode, MatrixNode>();
-        MatrixNode current;
+        path = new LinkedList<MatrixNode>();
+        MatrixNode current = new MatrixNode(-1, -1, false);
 
         //create paths using breadth first search
         frontier.add(start);
@@ -54,7 +57,7 @@ public class PathFinder {
         }
         //create path to goal
         current = goal;
-        while(!current.equals(start)){
+        while(!(current == null) && !current.equals(start)){
             path.add(current);
             current = cameFrom.get(current);
         }
@@ -63,14 +66,18 @@ public class PathFinder {
 
     private static ArrayList<MatrixNode> getNeighbors(MatrixNode node) {
         ArrayList<MatrixNode> neighbors = new ArrayList<MatrixNode>();
-        if(node.y - 1 >= App.getYmin() && !gameMatrix[node.x][node.y - 1].isWall)
-            neighbors.add(gameMatrix[node.x][node.y - 1]);
-        if(node.x - 1 >= App.getXmin() && !gameMatrix[node.x - 1][node.y].isWall)
-            neighbors.add(gameMatrix[node.x - 1][node.y]);
-        if(node.y + 1 <= App.getYmax() && !gameMatrix[node.x][node.y + 1].isWall)
-            neighbors.add(gameMatrix[node.x][node.y + 1]);
-        if(node.x + 1 >= App.getXmax() && !gameMatrix[node.x + 1][node.y].isWall)
-            neighbors.add(gameMatrix[node.x + 1][node.y]);
+        if(node.y - t >= App.getYmin() && node.x - t >= App.getXmin()) {
+            if(!gameMatrix[node.x / t - p][node.y / t - p - 1].isWall)
+                neighbors.add(gameMatrix[node.x / t - p][node.y / t - p - 1]);
+            if(!gameMatrix[node.x / t - p - 1][node.y / t - p].isWall)
+                neighbors.add(gameMatrix[node.x / t - p - 1][node.y / t - p]);
+        }   
+        if(node.y + t <= App.getYmax() && node.x + t <= App.getXmax()) {
+            if(!gameMatrix[node.x / t - p][node.y / t - p + 1].isWall)
+                neighbors.add(gameMatrix[node.x / t - p][node.y / t - p + 1]);
+            if(!gameMatrix[node.x / t - p + 1][node.y / t - p].isWall)
+                neighbors.add(gameMatrix[node.x / t - p + 1][node.y / t - p]);
+        }
         return neighbors;
     }
 }

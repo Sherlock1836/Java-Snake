@@ -43,6 +43,7 @@ public class Fruit {
         if(Arrays.equals(snek.getSnakeBody().getFirst(), fruit)){
             setEaten(true);
             snek.grow(App.getGrowRate());
+            generateFruit();
         }
     }
 }
