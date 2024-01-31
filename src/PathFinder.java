@@ -119,21 +119,17 @@ public class PathFinder {
 
     private static ArrayList<MatrixNode> getNeighbors(MatrixNode node) {
         ArrayList<MatrixNode> neighbors = new ArrayList<MatrixNode>();
-        if(node.y - t >= App.getYmin() && node.x - t >= App.getXmin()) {
-            if(!gameMatrix[node.x / t - p][node.y / t - p - 1].isWall){
-                neighbors.add(gameMatrix[node.x / t - p][node.y / t - p - 1]);
-            }
-            if(!gameMatrix[node.x / t - p - 1][node.y / t - p].isWall){
-                neighbors.add(gameMatrix[node.x / t - p - 1][node.y / t - p]);
-            }
-        }   
-        if(node.y + t <= App.getYmax() && node.x + t <= App.getXmax()) {
-            if(!gameMatrix[node.x / t - p][node.y / t - p + 1].isWall){
-                neighbors.add(gameMatrix[node.x / t - p][node.y / t - p + 1]);
-            }
-            if(!gameMatrix[node.x / t - p + 1][node.y / t - p].isWall){
-                neighbors.add(gameMatrix[node.x / t - p + 1][node.y / t - p]);
-            }
+        if(node.y - t >= App.getYmin() && !gameMatrix[node.x / t - p][node.y / t - p - 1].isWall){
+            neighbors.add(gameMatrix[node.x / t - p][node.y / t - p - 1]);
+        }
+        if(node.x - t >= App.getXmin() && !gameMatrix[node.x / t - p - 1][node.y / t - p].isWall){
+            neighbors.add(gameMatrix[node.x / t - p - 1][node.y / t - p]);
+        }  
+        if(node.y + t <= App.getYmax() && !gameMatrix[node.x / t - p][node.y / t - p + 1].isWall){
+            neighbors.add(gameMatrix[node.x / t - p][node.y / t - p + 1]);
+        }
+        if(node.x + t <= App.getXmax() && !gameMatrix[node.x / t - p + 1][node.y / t - p].isWall){
+            neighbors.add(gameMatrix[node.x / t - p + 1][node.y / t - p]);
         }
         return neighbors;
     }
