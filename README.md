@@ -13,6 +13,7 @@ I've enjoyed working on this and hope to add new features and improvements in th
   * Use the arrow keys to direct the snake.
   * Space bar pauses game and restarts the game when you die.
 * For an experience most like that of the cool math games version, play v1.2 (shown below)
+- In the messin-with-bot branch there's a working bot that plays the game. It uses breadth first search (implemented by me). It's not very good at staying alive but it is great at getting fruit. If you run it in an IDE with a terminal it prints a path reconstruction for each fruit search.
 
 ![snekv1_2](https://github.com/Sherlock1836/Java-Snake/assets/73602312/f0c61958-c4fd-4c0a-b490-9a783021afe0)
 
