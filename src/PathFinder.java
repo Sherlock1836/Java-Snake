@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//path finder uses a breadth first search because I'm too stupid to implement A* at the moment.
+//path finder uses a breadth first search because I'm too stupid to implement A* (my original plan) at the moment.
 public class PathFinder {
     private static MatrixNode start;
     private static MatrixNode goal;
@@ -22,15 +22,6 @@ public class PathFinder {
     public static void setGoal(int x, int y) {
         goal = gameMatrix[x / t - p][y / t - p];
         goal.dir = 4;
-    }
-
-    public static void reset() {
-        start = null;
-        goal = null;
-        gameMatrix = null;
-        frontier.clear();
-        cameFrom.clear();
-        path.clear();
     }
 
     public static void setGameMatrix(LinkedList<int[]> snekBody) {
